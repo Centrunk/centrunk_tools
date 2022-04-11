@@ -7,12 +7,7 @@ BASE_DIR='/opt'
 INSTALL_LOC='/opt/dvm'
 CONFIG_DIR='/opt/dvm/configs'
 CONFIG_REPO='https://github.com/Centrunk/centrunk-base-config'
-VAULT_ADDR="https://endpoints-cluster.vault.b14e7362-1499-478f-bea1-863d77f32450.aws.hashicorp.cloud:8200"
 CONFIG_FILE="$INSTALL_LOC/config.centrunk.yml"
-DEFAULT_KEYS="IP_ADDRESS NAC_CODE NET_ID SYS_ID ZEROTIER SYSTEM_PORT SYSTEM_PW"
-FW_RULE_PISTAR_VAULT="iptables -A OUTPUT -p tcp --dport 8200 -j ACCEPT # Rule to allow Vault Commands"
-FW_RULE_PISTAR_MINIO="iptables -A OUTPUT -p tcp --dport 9000 -j ACCEPT # Rule to allow Minio Commands"
-
 VAULT_DL_URL="https://releases.hashicorp.com/vault/1.10.0/"
 MC_DL_URL="https://dl.min.io/server/minio/release/"
 MINIO_URL="https://104.248.50.158:9000"
