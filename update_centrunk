@@ -1,0 +1,66 @@
+#!/bin/bash
+
+CENTRUNK_DIR="/opt/centrunk"
+CENTRUNK_REPO=""
+# pull the latest DVMhost binary based on architecture
+
+
+# test release download
+
+# $1 file name
+test_release_download()
+{
+  cd /tmp
+  curl -s https://api.github.com/repos/$CENTRUNK_REPO/releases/latest \
+    | grep "browser_download_url.*$1" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -qi -
+}
+
+# pull the latest /opt/centrunk folder
+echo "Stopping the Centrunk Service..."
+systemctl stop centrunk.service
+
+mkdir -p $CENTRUNK_DIR
+
+ARCH=$(uname -m)
+
+case $ARCH in
+  x86_64)
+    FILEN="centrunk_installer-x86_64.deb"
+    test_release_download $FILEN
+  ;;
+  i686)
+    FILEN="centrunk_installer-i686.deb"
+    test_release_download $FILEN
+  ;;
+  arm*)
+    FILEN="centrunk_installer-arm.deb"
+    test_release_download $FILEN
+  ;;
+  *)
+    echo "Unsupported architecture $ARCH. Please use one of the following architectures: "
+    echo "[*] i686
+    [*] x86_64
+    [*] arm
+    [*] arm64"
+    exit 100
+  ;;
+esac
+
+dpkg -i /tmp/$FILEN
+
+if [[ $? -ne 0 ]]
+then
+  echo "Error updating DVM binaries...exiting..."
+  exit 127
+fi
+# get the latest Centrunk tools
+
+cd /opt/centrunk
+git pull
+echo "Done with updates..."
+exit 0
+
+
