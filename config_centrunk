@@ -152,6 +152,8 @@ case $DISTRO in
       [*] Raspbian"
     exit 21
     fi
+    echo "If you haven't already, please remember to change your password for the pi user. 
+    You can do this by running \"passwd\" when this script is finished."
   ;;
   ID=ubuntu)
   ;;
