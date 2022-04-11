@@ -420,6 +420,18 @@ then
   usermod -a -G sudo centrunk
 fi
 
+# patch our iden table
+cat <<EOF > /opt/dvm/iden_table.dat
+# ChId,Base Freq,Spacing (khz),Input Offset (mhz),Bandwidth (khz),<newline>
+0,851006250,6.25,-45.000,12.5,
+1,762006250,6.25,30.000,12.5,
+15,935001250,6.25,-39.00000,12.5,
+2,146000000,6.25,1.000,12.5,
+3,450000000,6.25,5.000,12.5,
+4,430000000,6.25,5.000,12.5,
+EOF
+
+
 # update permissions to dvmhost user
 chown dvmhost:dvmhost /opt/dvm/*
 chown dvmhost:dvmhost /opt/dvm
