@@ -420,6 +420,10 @@ then
   usermod -a -G sudo centrunk
 fi
 
+# update permissions to dvmhost user
+chown dvmhost:dvmhost /opt/dvm/*
+chown dvmhost:dvmhost /opt/dvm
+
 #output commands
 write_log_event "!!!DVMhost install completed!!!"
 sleep 2
